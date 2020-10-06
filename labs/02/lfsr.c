@@ -4,9 +4,15 @@
 #include <string.h>
 
 void lfsr_calculate(uint16_t *reg) {
-
-  /* YOUR CODE HERE */
-
+    // calculate the leftmost bit
+    uint16_t bit = ((*reg >> 0) & 0x01) ^ ((*reg >> 2) & 0x01) 
+    ^ ((*reg >> 3) & 0x01) ^ ((*reg >> 5));
+    // set the mask code
+    bit = bit << 15 ;
+    // shift right one bit
+    *reg = *reg >> 1;
+    // reset the right bit to the desired bit
+    *reg = bit | (*reg & ( ~(1<<15) ) ); 
 }
 
 int main() {
